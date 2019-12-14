@@ -65,6 +65,7 @@ def main():
 
     pprint(event)
     print(template)
+    print(head_branch)
     comment = template.format(pull_id=pr.number)
     pr.create_issue_comment(comment)
 
