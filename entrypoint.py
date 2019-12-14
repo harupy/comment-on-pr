@@ -71,7 +71,7 @@ def main():
         'pull_id': pr.number,
         'branch_name': branch_name
     }
-    comment = template.format(pull_id=pr.number, branch_name=branch_name)
+    comment = template.format(**pr_info)
     pr.create_issue_comment(comment)
 
 
