@@ -61,7 +61,7 @@ def main():
     template_name = get_actions_input('filename')
 
     pprint(event)
-    print(os.listdir('.github/worksflows'))
+    print(os.listdir('.github/workflows'))
 
 
 
