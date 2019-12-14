@@ -58,8 +58,11 @@ def main():
     prs = repo.get_pulls(state='open', sort='created', head=head_branch)
     pr = prs[0]
 
+    template_name = get_actions_input('filename')
+
     pprint(event)
-    print('hello')
+    print(os.listdir('.'))
+
 
 
 if __name__ == '__main__':
