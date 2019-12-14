@@ -60,7 +60,7 @@ def main():
 
     template_path = os.path.join('.github/workflows', get_actions_input('filename'))
 
-    with open('template_path', 'w') as f:
+    with open(template_path, 'w') as f:
         template = f.read()
 
     pprint(event)
