@@ -58,10 +58,13 @@ def main():
     prs = repo.get_pulls(state='open', sort='created', head=head_branch)
     pr = prs[0]
 
-    template_name = get_actions_input('filename')
+    template_path = os.path.join('.github/workflows', get_actions_input('filename'))
+
+    with open('template_path', 'w') as f:
+        template = f.read()
 
     pprint(event)
-    print(os.listdir('.github/workflows'))
+    print(template)
 
 
 
