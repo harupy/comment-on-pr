@@ -66,7 +66,6 @@ def main():
 
     pprint(event)
     print(template)
-    print(head_branch)
 
     pr_info = {
         'pull_id': pr.number,
