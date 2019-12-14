@@ -1,0 +1,10 @@
+name: Comment on PR
+author: harupy
+description: Comment on pull requests
+inputs:
+  domain:
+    template: template file name
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
