@@ -1,3 +1,6 @@
+commands to checkout to this branch
+
 ```
-git checkout pull/{pull_id}
+git fetch upstream pull/{pull_id}/head:{branch_name}
+git checkout {branch_name}
 ```

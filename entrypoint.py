@@ -53,9 +53,10 @@ def main():
     # search a pull request that triggered this action
     gh = Github(os.getenv('GITHUB_TOKEN'))
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
-    head_branch = event['pull_request']['head']['label']
+    branch_label = event['pull_request']['head']['label']  # author:branch_name
+    branch_name = branch_label.split(':')[-1]
     repo = gh.get_repo(event['repository']['full_name'])
-    prs = repo.get_pulls(state='open', sort='created', head=head_branch)
+    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
     pr = prs[0]
 
     template_path = os.path.join('.github/workflows', get_actions_input('filename'))
@@ -66,7 +67,12 @@ def main():
     pprint(event)
     print(template)
     print(head_branch)
-    comment = template.format(pull_id=pr.number)
+
+    pr_info = {
+        'pull_id': pr.number,
+        'branch_name': branch_name
+    }
+    comment = template.format(**pr_info)
     pr.create_issue_comment(comment)
 
 
