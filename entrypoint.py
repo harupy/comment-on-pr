@@ -59,6 +59,7 @@ def main():
     pr = prs[0]
 
     pprint(event)
+    print('hello')
 
 
 if __name__ == '__main__':
