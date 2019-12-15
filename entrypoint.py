@@ -58,7 +58,24 @@ def main():
     prs = repo.get_pulls(state='open', sort='created', head=head_branch)
     pr = prs[0]
 
-    pprint(event)
+    # load template
+    template = load_template(get_actions_input('filename'))
+
+    # build a comment
+    pr_info = {
+        'pull_id': pr.number,
+        'branch_name': branch_name
+    }
+    new_comment = template.format(**pr_info)
+
+    # if this pull request has the comment
+    old_comments = [c.body for c in pr.get_issue_comments()]
+    if new_comment in old_comments:
+        print('This pull request already a duplicated comment.')
+        exit(0)
+
+    # add the comment
+    pr.create_issue_comment(comment)
 
 
 if __name__ == '__main__':
