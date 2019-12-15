@@ -85,11 +85,11 @@ def main():
         'pull_id': pr.number,
         'branch_name': branch_name
     }
-    comment = template.format(**pr_info)
+    new_comment = template.format(**pr_info)
 
     # if this pull request has the comment
-    comments = [c.body for c in pr.get_issue_comments()]
-    if issue_link in comments:
+    old_comments = [c.body for c in pr.get_issue_comments()]
+    if new_comment in old_comments:
         print('This pull request already a duplicated comment.')
         exit(0)
 
