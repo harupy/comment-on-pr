@@ -49,16 +49,51 @@ def get_actions_input(input_name):
     return os.getenv('INPUT_{}'.format(input_name).upper())
 
 
+def load_template(filename):
+    """
+    Load a template.
+
+    Parameters
+    ----------
+    filename : template file name
+
+    Returns
+    -------
+    template : str
+
+    """
+    template_path = os.path.join('.github/workflows', filename)
+    with open(template_path, 'r') as f:
+        return f.read()
+
 def main():
     # search a pull request that triggered this action
     gh = Github(os.getenv('GITHUB_TOKEN'))
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
-    head_branch = event['pull_request']['head']['label']
+    branch_label = event['pull_request']['head']['label']  # author:branch
+    branch_name = branch_label.split(':')[-1]
     repo = gh.get_repo(event['repository']['full_name'])
-    prs = repo.get_pulls(state='open', sort='created', head=head_branch)
+    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
     pr = prs[0]
 
-    pprint(event)
+    # load template
+    template = load_template(get_actions_input('filename'))
+
+    # build a comment
+    pr_info = {
+        'pull_id': pr.number,
+        'branch_name': branch_name
+    }
+    new_comment = template.format(**pr_info)
+
+    # check if this pull request has a duplicated comment
+    old_comments = [c.body for c in pr.get_issue_comments()]
+    if new_comment in old_comments:
+        print('This pull request already a duplicated comment.')
+        exit(0)
+
+    # add the comment
+    pr.create_issue_comment(new_comment)
 
 
 if __name__ == '__main__':
