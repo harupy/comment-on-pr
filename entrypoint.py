@@ -90,7 +90,7 @@ def main():
     # if this pull request has the comment
     comments = [c.body for c in pr.get_issue_comments()]
     if issue_link in comments:
-        print('This pull request already has a duplicated for {}.')
+        print('This pull request already a duplicated comment.')
         exit(0)
 
     # add the comment
