@@ -85,7 +85,7 @@ def main():
     }
     new_comment = template.format(**pr_info)
 
-    # if this pull request has the comment
+    # check if this pull request has a duplicated comment
     old_comments = [c.body for c in pr.get_issue_comments()]
     if new_comment in old_comments:
         print('This pull request already a duplicated comment.')
