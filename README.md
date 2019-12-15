@@ -6,7 +6,7 @@ A GitHub action to add a comment on pull requests.
 
 [`.github/workflows/example.yml`](.github/workflows/example.yml)
 
-```
+```yml
 name: Add checkout and pull commands
 on: pull_request
 jobs:
@@ -20,7 +20,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           filename: template.md
-
 ```
 
 [`.github/workflows/template.md`](.github/workflows/template.md)
