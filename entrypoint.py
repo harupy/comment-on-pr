@@ -49,6 +49,22 @@ def get_actions_input(input_name):
     return os.getenv('INPUT_{}'.format(input_name).upper())
 
 
+def load_template(filename):
+    """
+    Load a template.
+    Parameters
+    ----------
+    filename : template file name
+
+    Returns
+    -------
+    template : str
+
+    """
+    template_path = os.path.join('.github/workflows', filename)
+    with open(template_path, 'r') as f:
+        return f.read()
+
 def main():
     # search a pull request that triggered this action
     gh = Github(os.getenv('GITHUB_TOKEN'))
