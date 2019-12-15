@@ -1,7 +1,5 @@
 import json
 import os
-import re
-from pprint import pprint
 
 from github import Github
 
@@ -43,7 +41,7 @@ def get_actions_input(input_name):
 
     References
     ----------
-    .. [1] https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#example
+    .. [1] https://help.github.com/en/actions/automating-your-workflow-with-github-actions/metadata-syntax-for-github-actions#example  # noqa: E501
 
     """
     return os.getenv('INPUT_{}'.format(input_name).upper())
@@ -65,6 +63,7 @@ def load_template(filename):
     template_path = os.path.join('.github/workflows', filename)
     with open(template_path, 'r') as f:
         return f.read()
+
 
 def main():
     # search a pull request that triggered this action
