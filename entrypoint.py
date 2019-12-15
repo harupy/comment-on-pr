@@ -49,6 +49,24 @@ def get_actions_input(input_name):
     return os.getenv('INPUT_{}'.format(input_name).upper())
 
 
+def load_template(filename):
+    """
+    Load a template.
+
+    Parameters
+    ----------
+    filename : template file name
+
+    Returns
+    -------
+    template : str
+
+    """
+    template_path = os.path.join('.github/workflows', filename)
+    with open(template_path, 'r') as f:
+        return f.read()
+
+
 def main():
     # search a pull request that triggered this action
     gh = Github(os.getenv('GITHUB_TOKEN'))
@@ -59,19 +77,23 @@ def main():
     prs = repo.get_pulls(state='open', sort='created', head=branch_label)
     pr = prs[0]
 
-    template_path = os.path.join('.github/workflows', get_actions_input('filename'))
+    # load template
+    template = load_template(get_actions_input('filename'))
 
-    with open(template_path, 'r') as f:
-        template = f.read()
-
-    pprint(event)
-    print(template)
-
+    # build a comment
     pr_info = {
         'pull_id': pr.number,
         'branch_name': branch_name
     }
     comment = template.format(**pr_info)
+
+    # if this pull request has the comment
+    comments = [c.body for c in pr.get_issue_comments()]
+    if issue_link in comments:
+        print('This pull request already has a duplicated for {}.')
+        exit(0)
+
+    # add the comment
     pr.create_issue_comment(comment)
 
 
