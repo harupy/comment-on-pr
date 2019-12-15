@@ -1,5 +1,8 @@
 name: Comment on PR
 author: harupy
+branding:
+  icon: 'git-pull-request'
+  color: 'purple'
 description: Comment on pull requests
 inputs:
   domain:
