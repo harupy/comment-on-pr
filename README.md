@@ -24,7 +24,7 @@ jobs:
 
 [`.github/workflows/template.md`](.github/workflows/template.md)
 
-````
+````markdown
 commands to checkout to this branch
 
 ```
