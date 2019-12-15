@@ -7,11 +7,11 @@ A GitHub action to add a comment on pull requests.
 [`.github/workflows/example.yml`](.github/workflows/example.yml)
 
 ```yml
-name: Add checkout and pull commands
+name: Add checkout commands
 on: pull_request
 jobs:
   comment:
-    name: Add checkout and pull commands
+    name: Add checkout commands
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -24,7 +24,7 @@ jobs:
 
 [`.github/workflows/template.md`](.github/workflows/template.md)
 
-````
+````markdown
 commands to checkout to this branch
 
 ```
