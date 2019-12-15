@@ -92,7 +92,7 @@ def main():
         exit(0)
 
     # add the comment
-    pr.create_issue_comment(comment)
+    pr.create_issue_comment(new_comment)
 
 
 if __name__ == '__main__':
