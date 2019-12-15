@@ -52,6 +52,7 @@ def get_actions_input(input_name):
 def load_template(filename):
     """
     Load a template.
+
     Parameters
     ----------
     filename : template file name
