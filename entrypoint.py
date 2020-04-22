@@ -86,13 +86,13 @@ def main():
     new_comment = template.format(**pr_info)
 
     # check if this pull request has a duplicated comment
-    old_comments = [c.body for c in pr.get_issue_comments()]
+    old_comments = [c.body for c in pr.get_comments()]
     if new_comment in old_comments:
         print('This pull request already a duplicated comment.')
         exit(0)
 
     # add the comment
-    pr.create_issue_comment(new_comment)
+    pr.create_review(body=new_comment)
 
 
 if __name__ == '__main__':
