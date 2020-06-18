@@ -36,3 +36,4 @@ git checkout {branch_name}
 The template above creates:
 
 ![comment_example](./assets/comment_example.png)
+
