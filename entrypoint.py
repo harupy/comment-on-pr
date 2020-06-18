@@ -1,7 +1,7 @@
 import json
 import os
 
-from github import Github
+from github import Github 
 
 
 def read_json(filepath):
