@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: harupy/comment-on-pr@master
+      - uses: wamburu/comment-on-pr@1.0.1-beta
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
