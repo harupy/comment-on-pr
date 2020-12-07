@@ -2,6 +2,8 @@
 
 A GitHub action to add a comment on pull requests.
 
+Forked from [@harupy](https://github.com/harupy/) [Comment on PR](https://github.com/harupy/comment-on-pr)
+
 ## Usage Example
 
 [`.github/workflows/example.yml`](.github/workflows/example.yml)
