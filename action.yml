@@ -1,9 +1,9 @@
-name: Comment on PR
-author: harupy
+name: Comment on PR from file
+author: wamburu
 branding:
   icon: 'git-pull-request'
   color: 'purple'
-description: Comment on pull requests
+description: Comment on pull requests from a file
 inputs:
   domain:
     template: template file name
