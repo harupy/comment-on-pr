@@ -70,7 +70,12 @@ def main():
     gh = Github(os.getenv('GITHUB_TOKEN'))
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
     branch_label = event['pull_request']['head']['label']  # author:branch
-    branch_name = branch_label.split(':')[-1]
+    #branch_name = branch_label.split(':')[-1]
+    branch_name=${GITHUB_REF##*/}
+    branch_ref=${{github.head_ref}}
+    print(branch_ref)
+    print("Branch label: ", branch_label)
+    print("Branch name: ", branch_name)
     repo = gh.get_repo(event['repository']['full_name'])
     prs = repo.get_pulls(state='open', sort='created', head=branch_label)
     pr = prs[0]
