@@ -5,9 +5,12 @@ branding:
   color: 'purple'
 description: Comment on pull requests
 inputs:
-  domain:
-    template: template file name
+  template:
+    description: template file name
     required: true
+  updatecomment:
+    description: string id to identify comment
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

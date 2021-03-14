@@ -65,6 +65,25 @@ def load_template(filename):
         return f.read()
 
 
+def get_comment_tag(comment_id):
+    """
+    Build the comment tag to append to the comment.
+
+    Parameters
+    ----------
+    comment_id : str
+
+    Returns
+    -------
+    comment_tag : str
+
+    Notes
+    -----
+    Used to identify the comment for updating when the updatecomment arg is provided
+    """
+    return '\n*comment tag: {}*'.format(comment_id) if comment_id else ''
+
+
 def main():
     # search a pull request that triggered this action
     gh = Github(os.getenv('GITHUB_TOKEN'))
@@ -76,20 +95,33 @@ def main():
     pr = prs[0]
 
     # load template
-    template = load_template(get_actions_input('filename'))
+    template = load_template(get_actions_input('template'))
+
+    # get comment tag and append to message
+    comment_id = get_actions_input('updatecomment')
+    comment_tag = get_comment_tag(comment_id)
+    template += comment_tag
 
     # build a comment
-    pr_info = {
-        'pull_id': pr.number,
-        'branch_name': branch_name
-    }
+    pr_info = {'pull_id': pr.number, 'branch_name': branch_name}
     new_comment = template.format(**pr_info)
 
+    pr_comments = pr.get_issue_comments()
+
     # check if this pull request has a duplicated comment
-    old_comments = [c.body for c in pr.get_issue_comments()]
-    if new_comment in old_comments:
-        print('This pull request already a duplicated comment.')
-        exit(0)
+    if not comment_id:
+        old_comments = [c.body for c in pr_comments]
+        if new_comment in old_comments:
+            print('This pull request already a duplicated comment.')
+            exit(0)
+
+    if comment_id:
+        try:
+            comment_to_update = next(c for c in pr_comments if comment_tag in c.body)
+            comment_to_update.edit(new_comment)
+            return
+        except StopIteration:
+            pass
 
     # add the comment
     pr.create_issue_comment(new_comment)
